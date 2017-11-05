@@ -1,0 +1,27 @@
+html{
+  height: 100%;
+  font-style: 100%
+
+
+
+}body{
+    font-family: 'opens sans';
+    color: white;
+    min-height: 100%;
+
+padding: 0 300px;
+margin: 0 auto;
+border-radius: 0px;
+
+}
+body.landing{
+
+background-color: rgb(58, 23, 63);
+
+
+}
+.navbar .logo{
+
+  position: relative;
+  left:2rem
+}
