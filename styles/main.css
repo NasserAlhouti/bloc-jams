@@ -1,3 +1,32 @@
+*, *::before, *::after /* the star basically is a univeral selector */{
+      -moz-box-sizing : border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing:border-box;
+}
+.container{
+   margin: 0 auto;
+   max-width: 64rem;
+}
+/*Medium and small screens are (640px) bigger phones like a samsung or smaller tablets */
+@media (min-width : 640px) {
+  html{ font-size:112%;}
+}
+  .column{
+      
+      padding-left:1rem;
+      padding-right:1rem;
+  }
+  .column .full{ width :100%;}
+  .column .two-thirds{width :66.7%;}
+  .column .half{width:50%;}
+  .column .third {width: 33.3%}
+  .collumn .fourth {width:25%}
+  .column .flow-opposite {float:right;}
+/* Large screens (1024px) laptops and tablets */
+@media (min-width:1024px) {
+  html{ font-size:120%}
+}
+
 html{
   height: 100%;
   font-size: 100%;
@@ -8,62 +37,12 @@ body{
      min-height: 100%;
 
 }
- body.landing{
-background-color: rgb(58, 23, 63);
-}
+
 .navbar {
   background-color: rgb(101,18,95);
   padding: 0.5rem;
 }
-.navbar .logo{
+.navbar > .logo{
   position: relative;
   left:2rem;
-  overflow: auto;
 }/* so far everything behind this line is good */
-.hero-content {
-    position:relative;
-    min-height: 600px;
-    background-image:url(https://bloc-global-assets.s3.amazonaws.com/images-frontend/Bloc%20Jams%20Assets/bloc_jams_bg.jpg);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-}
-.hero-content .hero-title{
-   position:absolute; /* this makes it so that there isn't any spacing between the header background and the picture */
-   top:40% ;/* moves the title to the bottom 40 % */
-   -webkit-transform : translateY( -50%); /* all these three lines basically do what the last thing is tellling it which is transforming -50% downwards so it's basically a confirmation */
-   -moz-transform: translateY(-50%);
-   -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    width: 100%;
-text-align:center;
-font-size: 4rem;
-font-weight:300;
-text-transform: uppercase; /*makes text upper case */
-letter-spacing: 0.5rem;
-text-shadow: 1px 1px 0px rgb(58,23,63);
-}
-.selling-points{
-  position:relative;
-  display: table; /* table basically makes the text right underneath each other and that there is space once you use the table-cell */
-  width: 100%;
-  -webkit-box-sizing:border-box; /* they basically do the same thing */
-  -moz-box-sizing : border-box;
-  box-sizing: border-box;
-}
-.point {
-  display: table-cell;/* this is cool because it makes your text look like a table instead of it being on top of one another you can specify which element you want on top of the other using this command */
-   position: relative; /* absolution position baiscally takes up the entire space */
-   width: 33.3%;
-   padding : 2rem;
-   text-align: center;
-}
-  .point .point-title{
-    font-size:1.25rem;
-  }
-  .ion-music-note,
-  .ion-radio-waves,
-  .ion-iphone{
-    color: rgb(233, 50, 117);
-    font-size:5rem;
-  }
