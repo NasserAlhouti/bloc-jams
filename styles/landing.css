@@ -7,8 +7,8 @@ background-color: rgb(58, 23, 63);
     min-height: 600px;
     background-image:url(https://bloc-global-assets.s3.amazonaws.com/images-frontend/Bloc%20Jams%20Assets/bloc_jams_bg.jpg);
     background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
+    background-position: center center; /*makes it in the center of the page */
+    background-size: cover; /*makes it so that it shows the entire image */
 }
 
 .hero-content .hero-title{
@@ -17,14 +17,14 @@ background-color: rgb(58, 23, 63);
    -webkit-transform : translateY( -50%); /* all these three lines basically do what the last thing is tellling it which is transforming -50% downwards so it's basically a confirmation */
    -moz-transform: translateY(-50%);
    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+    transform: translateY(-50%); /*move upwards 50% */
     width: 100%;
 text-align:center;
 font-size: 4rem;
 font-weight:300;
 text-transform: uppercase; /*makes text upper case */
 letter-spacing: 0.5rem;
-text-shadow: 1px 1px 0px rgb(58,23,63);
+text-shadow: 1px 1px 0px rgb(58,23,63); /* the first is the x direction the second is the y direction and the third is the opacity */
 }
 
 .selling-points{
