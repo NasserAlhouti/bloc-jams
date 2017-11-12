@@ -3,22 +3,18 @@
       -webkit-box-sizing: border-box;
       box-sizing:border-box;
 }/* border box but for the Mac */
-
 .container{
    margin: 0 auto;
    max-width: 64rem;
-
 }
-
- @media (min-width: 640px) {
+@media (min-width: 640px) {
      html { font-size: 112%; }
- 
+
      .column {
          float: left;
          padding-left: 1rem;
          padding-right: 1rem;
      }
-
       .column.full { width: 100%; }
      .column.two-thirds { width: 66.7%; }
      .column.half { width: 50%; }
@@ -30,9 +26,6 @@
  @media (min-width: 1024px) {
    html { font-size: 120%; }
  }
-
-
-
 html{
   height: 100%;
   font-size: 100%;
@@ -41,18 +34,57 @@ body{
      font-family: 'Open Sans', sans-serif;
      color: white;
      min-height: 100%;
-
 }
-
-.navbar {
-  background-color: rgb(101,18,95);
-  padding: 0.5rem;
-}
-.navbar > .logo{
+.navbar{
   position: relative;
-  left:2rem;
-}/* so far everything behind this line is good */
+  padding: 0.5rem;
+  /* #1 */
+  background-color:rgba(101,18,95,0.5);
+  /* #2 */
+z-index: 1; /* to make the nav sit on top of other elements while we collapse the page and it basically adds a third dimenstion to the page */
+}
 
+.navbar .logo{
+  position: relative;
+  left: 2rem;
+  cursor: pointer;
+}/* makes the finger icon when you hover over the logo */
+.navbar .links-container {
+     display: table;
+     position: absolute;
+     top: 0;
+     right: 0;
+     height: 100px;
+     color: white;
+
+ }
+
+
+  .links-container .navbar-link{
+    display: table-cell;
+    position: relative;
+    height: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    /* #3 */
+    vertical-align: middle;
+    color:white;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    /* #4 */
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .links-container .navbar-link:hover {
+    color:rgba(233, 50, 117);
+  }
+  .links-container .navbar-link:active {
+    background-color: white;
+  }
+  .links-container .navbar-link:hover {
+color:rgb(233, 50, 117);
+}
 .clearfix::after{
   content:".";
     visibility: hidden;
