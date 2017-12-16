@@ -44,7 +44,7 @@ var albumNasser ={
 var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
-      + '  <td class="song-item-number">' + songNumber + '</td>'
+       + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
       + '  <td class="song-item-duration">' + songLength + '</td>'
       + '</tr>'
@@ -76,14 +76,14 @@ var createSongRow = function(songNumber, songName, songLength) {
   };
     var albums = [albumPicasso,albumMarconi,albumNasser];
     var index = 1;
-    var playButtonTemplate = '<a class="album-song-button"<span class ="ion-play"></span></a>';
+     var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
      window.onload = function() {
          setCurrentAlbum(albumPicasso);
          var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
          var songRow = document.getElementsByClassName('album-view-song-item');
-         songListContainer.addEventListener('mouseover',function(event){
+         songListContainer.addEventListener('mouseover', function(event) {
            //#1
-          if(event.target.parentElement.className === 'album-view-song-item'){
+          if (event.target.parentElement.className === 'album-view-song-item'){
             event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
           }
 
