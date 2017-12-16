@@ -80,7 +80,7 @@ var createSongRow = function(songNumber, songName, songLength) {
      window.onload = function() {
          setCurrentAlbum(albumPicasso);
          var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
-         var songRow = document.getElementsByClassName('album-view-song-item');
+         var songRows = document.getElementsByClassName('album-view-song-item');
          songListContainer.addEventListener('mouseover', function(event) {
            //#1
           if (event.target.parentElement.className === 'album-view-song-item'){
