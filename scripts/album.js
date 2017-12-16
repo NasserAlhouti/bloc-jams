@@ -12,7 +12,7 @@ var albumPicasso = {
          { title: 'Magenta', duration: '2:15'}
      ]
  };
-//Another example
+//Another album example
 var albumMarconi = {
     title: 'The Telephone',
     artist: 'Guglielmo Marconi',
@@ -27,6 +27,20 @@ var albumMarconi = {
         { title: 'Wrong phone number', duration: '2:15'}
     ]
 };
+var albumNasser ={
+  title: "Greatest hits",
+  artist: 'Nasser alhouti',
+  label:'studio ghibli',
+  year:"2012",
+  albumArtUrl: 'assets/images/album_covers/15.png',
+  songs : [
+        {title:'Where do you take your bar?',duration:'4:01'},
+        {title:'I left my wallet at your house',duration:'2:04'},
+        {title:"Finding nirvana",duration:'3:04'},
+        {title:"Train like a ninja",duration:'1:30'},
+        {title:"The day is over?",duration:'6:02'}
+   ]
+};
 var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -39,14 +53,14 @@ var createSongRow = function(songNumber, songName, songLength) {
      return template;
  };
  var setCurrentAlbum = function(album) {
-      // #1
+      // #1 setting up the variables
       var albumTitle = document.getElementsByClassName('album-view-title')[0];
       var albumArtist = document.getElementsByClassName('album-view-artist')[0];
       var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
       var albumImage = document.getElementsByClassName('album-cover-art')[0];
       var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
-      // #2
+      // #2 using the node for the varibles
       albumTitle.firstChild.nodeValue = album.title;
       albumArtist.firstChild.nodeValue = album.artist;
       albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
@@ -60,7 +74,16 @@ var createSongRow = function(songNumber, songName, songLength) {
           albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
       }
   };
-
+    var albums = [albumPicasso,albumMarconi,albumNasser];
+    var index = 1;
   window.onload = function() {
       setCurrentAlbum(albumPicasso);
+      var albumImage = document.getElementsByClassName('album-cover-art')[0];
+      albumImage.addEventListener("click",function(event){
+        setCurrentAlbum(albums[index]);
+        index++;
+        if (index == albums.length){
+          index = 0 ;
+        }
+      });
   };
