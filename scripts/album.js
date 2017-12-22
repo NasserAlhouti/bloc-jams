@@ -103,3 +103,27 @@ var createSongRow = function(songNumber, songName, songLength) {
         }
       });
   };
+  var findParentsByClassName = function(element,targetClass){
+    if(element){
+      var currentParent = element.parentElement;
+      while(currentParent.className !== targetClass && currentParent.className !== null){
+        currentParent = currentParent.parentElement;
+      }
+      return currentParent;
+    }
+
+  };
+  var getSongItem = function(element){
+    switch (element.className) {
+      case 'album-song-button':
+      case 'ion-play':
+      case'ion-pause':
+          return findParentsByClassName(element, 'song-item-number');
+          case 'album-view-song-item':
+              return element.querySelector('.song-item-number');
+              cas
+        break;
+      default:
+
+    }
+  }
