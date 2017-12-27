@@ -41,6 +41,8 @@ var albumNasser ={
         {title:"The day is over?",duration:'6:02'}
    ]
 };
+
+// how can I invoke this object so that it can be displayed as HTML
 var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -51,7 +53,7 @@ var createSongRow = function(songNumber, songName, songLength) {
       ;
 
      return template;
- };
+ };// by creating '' are we adding HTML if so how are we invoking it or making it display on screen
  var setCurrentAlbum = function(album) {
       // #1 setting up the variables
       var albumTitle = document.getElementsByClassName('album-view-title')[0];
@@ -61,10 +63,11 @@ var createSongRow = function(songNumber, songName, songLength) {
       var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
       // #2 using the node for the varibles
-      albumTitle.firstChild.nodeValue = album.title;
-      albumArtist.firstChild.nodeValue = album.artist;
+      //
+      albumTitle.firstChild.nodeValue = album.title; // .firstChild.nodeValue inserts text in the created? why are we setting that equal to album.title?
+      albumArtist.firstChild.nodeValue = album.artist; // is firstChild.nodeValue similar to createTextNode ? how is it diffrent?
       albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
-      albumImage.setAttribute('src', album.albumArtUrl);
+      albumImage.setAttribute('src', album.albumArtUrl); //what does setAttribute do
 
       // #3
       albumSongList.innerHTML = '';
