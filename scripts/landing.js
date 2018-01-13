@@ -1,28 +1,23 @@
-var pointsArray = document.getElementsByClassName('point');
+$(window).load(function() { // load function when the window loads do this
+  // #1 //
+  if ($(window).height() > 950) {
+    animatePoints();
+  } // this condition would be true if you view bloc jams on the big screen
+  var scrollDistance = $('.selling-points').offset().top - $(window).height() + 200;
+  $(window).scroll(function(event) {
 
-var revealPoint = function(point){
 
-      point.style.opacity= 1;
-      point.style.transform = "scaleX(1) translateY(0)";
-      point.style.msTransform = "scaleX(1) translateY(0)";
-      point.style.WebKitTransform = "scaleX(1) translateY(0)";
+    var animatePoints = function() {
+      var revealPoint = function() {
+        $(this).css({
+          opacity: 1,
+          transform: 'scaleX(1) translateY(0)'
+        }); // for css
+      }
+      $.each($('.point'), revealPoint);
+    }; //for the reveal points function
+    if ($(window).scrollTop() >= scrollDistance) {
+      animatePoints();
     }
-
- var animatePoints = function(points){
-forEach(points , revealPoint);
-
-
-
-
-}
-window.onload = function(){
-  var sellingpoints = document.getElementsByClassName('selling-points')[0];
-  var scrollDistance = sellingpoints.getBoundingClientRect().top - window.innerHeight + 200;
-window.addEventListener('scroll',function(event) {
- if (document.documentElement.scrollTop || document.body.scrollTop >= scrollDistance){
-       animatePoints(pointsArray);
- }if(window.innerHeight > 950){
-    animatePoints(pointsArray);
- }
   });
-}
+}); // checked
