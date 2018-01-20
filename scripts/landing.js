@@ -1,8 +1,5 @@
 $(window).load(function() { // load function when the window loads do this
-  // #1 //
-  if ($(window).height() > 950) {
-    animatePoints();
-  } // this condition would be true if you view bloc jams on the big screen
+
   var scrollDistance = $('.selling-points').offset().top - $(window).height() + 200;
   $(window).scroll(function(event) {
 
@@ -19,5 +16,8 @@ $(window).load(function() { // load function when the window loads do this
     if ($(window).scrollTop() >= scrollDistance) {
       animatePoints();
     }
-  });
+  });  // #1 //
+    if ($(window).height() > 950) {
+      animatePoints();
+    } // this condition would be true if you view bloc jams on the big screen
 }); // changes made
