@@ -20,4 +20,4 @@ $(window).load(function() { // load function when the window loads do this
       animatePoints();
     }
   });
-}); // checked
+}); // changes made
