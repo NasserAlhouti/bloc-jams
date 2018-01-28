@@ -103,9 +103,18 @@
      margin-top: -.25rem;
      border-radius: 50%;
      cursor:pointer;
-     -webkit-transition: all 100ms ease-in-out;
-     -moz-transition:all 100ms ease-in-out;
-     transition: all 100ms ease-in-out;
+     -webkit-transition: width 100ms ease-in-out,
+                height 100ms ease-in-out,
+                margin-top 100ms ease-in-out,
+                margin-left 100ms ease-in-out;
+     -moz-transition:all width 100ms ease-in-out,
+                height 100ms ease-in-out,
+                margin-top 100ms ease-in-out,
+                margin-left 100ms ease-in-out;
+     transition: width 100ms ease-in-out,
+                height 100ms ease-in-out,
+                margin-top 100ms ease-in-out,
+                margin-left 100ms ease-in-out;
    }
    .seek-bar:hover .thumb{ /* once it hovers on the seek bar the circle gets bigger making it easier to grab the search bar */
      width:1.1rem;
