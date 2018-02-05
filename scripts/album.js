@@ -1,4 +1,11 @@
 // how can I invoke this object so that it can be displayed as HTML
+var setSong = function(songNumber){
+  currentlyPlayingSongNumber = parseInt(songNumber);
+  currentSongFromAlbum = currentAlbum.songs[songNumber - 1]
+};
+var getSongNumberCell = function(number){
+return $('.song-item-number[data-song-number"]'+number+'"]')
+}
 var createSongRow = function(songNumber, songName, songLength) {
   var template =
     '<tr class="album-view-song-item">' +
@@ -12,12 +19,12 @@ var createSongRow = function(songNumber, songName, songLength) {
   var clickHandler = function() {
     var songNumber = parseInt($(this).attr('data-song-number'));
 
-    if (currentlyPlayingSongNumber !== null) {
+    if (setSong() !== null) {
       // Revert to song number for currently playing song because user started playing new song.
-      var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
-      currentlyPlayingCell.html(currentlyPlayingSongNumber);
+       var currentlyPlayingCell = $('.song-item-number[data-song-number="' + setSong() + '"]');
+      currentlyPlayingCell.html(setSong());
     }
-    if (currentlyPlayingSongNumber !== songNumber) {
+    if (setSong() !== songNumber) {
       // Switch from Play -> Pause button to indicate new song is playing.
       var $volumeFill = $('.volume .fill');
       var $volumeThumb = $('.volume .thumb');
@@ -45,7 +52,7 @@ var createSongRow = function(songNumber, songName, songLength) {
   var onHover = function(event) {
     var songNumberCell = $(this).find('.song-item-number');
     var songNumber = parseInt(songNumberCell.attr('data-song-number'));
-    if (songNumber !== currentlyPlayingSongNumber) {
+    if (songNumber !== setSong()) {
       songNumberCell.html(playButtonTemplate);
 
     }
@@ -103,9 +110,8 @@ var index = 1;
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 var pauseButtonTemplate = '<a class ="album-song-button"><span class ="ion-pause"></span></a>';
 var playerBarPlayButton = '<span class="ion-play"></span>';
-var playerBarPauseButton = '<span class ="ion-pause"></span>'
-var currentAlbum = null;
-var $previousButton = $('.main-controls .previous');
+ var playerBarPauseButton = '<span class="ion-pause"></span>';
+ var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
 var currentSoundFile = null;
 var currentlyPlayingSongNumber = null;
@@ -221,13 +227,13 @@ var nextSong = function() {
   // Incrementing the song
   currentSongIndex++;
   if (currentSongIndex >= currentAlbum.songs.length) {
-    currentSongIndex = 0;
-  }
+       currentSongIndex = 0;
+   }
   // Save the last song number before changing it;
   var lastSongNumber = currentlyPlayingSongNumber
   // Set a new current Song
-  currentlyPlayingSongNumber = currentSongIndex + 1;
-  currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+   currentlyPlayingSongNumber = currentSongIndex + 1;
+   currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
   // update the player Bar information
   updatePlayerBarSong();
   var $nextSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
@@ -235,11 +241,13 @@ var nextSong = function() {
   $nextSongNumberCell.html(pauseButtonTemplate);
   $lastSongNumberCell.html(lastSongNumber);
 };
+var currentAlbum = null;
+var currentlyPlayingSongNumber = null;
 $(document).ready(function() {
   setCurrentAlbum(albumPicasso);
   setupSeekBar();
   $previousButton.click(previousSong);
-  $nextButton.click(nextSong);
+       $nextButton.click(nextSong);
   var albumImage = document.getElementsByClassName('album-cover-art')[0];
   albumImage.addEventListener("click", function(event) {
     setCurrentAlbum(albums[index]);
