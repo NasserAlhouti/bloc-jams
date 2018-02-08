@@ -1,4 +1,4 @@
-var albumPicasso = {
+var albumPicasso = { // the names of the albums
   title: 'The Colors',
   artist: 'Pablo Picasso',
   label: 'Cubism',
@@ -85,15 +85,15 @@ var albumNasser = {
 };
 var createSongRow = function(songNumber, songName, songLength) {
   var template =
-    '<tr class="album-view-song-item">' +
-    '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>' +
-    '  <td class="song-item-title">' + songName + '</td>' +
-    '  <td class="song-item-duration">' + songLength + '</td>' +
+    '<tr class="album-view-song-item">' + //output table row class "album-view-song-item "
+    '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>' + //each song has a different number
+    '  <td class="song-item-title">' + songName + '</td>' + //depends on the song
+    '  <td class="song-item-duration">' + songLength + '</td>' + //each song has a different duratoin
     '</tr>';
-
-  return template;
+    return template
 };
-
+console.log()
+// first function
 var setCurrentAlbum = function(album) {
   // #1 setting up the variables
   var albumTitle = document.getElementsByClassName('album-view-title')[0];
@@ -102,18 +102,18 @@ var setCurrentAlbum = function(album) {
   var albumImage = document.getElementsByClassName('album-cover-art')[0];
   var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
-  // #2 using the node for the varibles
-  albumTitle.firstChild.nodeValue = album.title;
-  albumArtist.firstChild.nodeValue = album.artist;
+  // #2 changing the text
+  albumTitle.firstChild.nodeValue = album.title; // the text is being set to what excatly we are setting the album to the parameter.title
+  albumArtist.firstChild.nodeValue = album.artist; //parameter.artist
   albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
   albumImage.setAttribute('src', album.albumArtUrl);
 
   // #3
-  albumSongList.innerHTML = '';
+  albumSongList.innerHTML = ''; // why are we setting it to an empty string?
 
   // #4
   for (var i = 0; i < album.songs.length; i++) {
-    albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
+    albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title /* ie blue - green - pink*/, album.songs[i].duration); //song number can't be equal to 0 so that's why we add one to it
   }
 };
 var albums = [albumPicasso, albumMarconi, albumNasser];
@@ -122,7 +122,7 @@ var pauseButtonTemplate = '<a class="album-song-button"><span class ="ion-pause>
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 var currentlyPlayingSong = null;
 window.onload = function() {
-  setCurrentAlbum(albumPicasso);
+  setCurrentAlbum(albumPicasso); //when the page loads album picasso loads
   var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
   var songRows = document.getElementsByClassName('album-view-song-item');
   songListContainer.addEventListener('mouseover', function(event) {
@@ -157,7 +157,7 @@ window.onload = function() {
       index = 0;
     }
   });
-};
+}; //end of second function
 var findParentsByClassName = function(element, targetClass) {
   if (element) {
     var currentParent = element.parentElement;
@@ -182,7 +182,7 @@ var getSongItem = function(element) {
       return element.querySelector('.song-item-number');
     case 'song-item-title':
     case 'song-item-duration':
-      return findParentByClassName(element, 'album-view-song-item').querySelector('.song-item-number');
+      return findParentsByClassName(element, 'album-view-song-item').querySelector('.song-item-number');
     case 'song-item-number':
       return element;
     default:
