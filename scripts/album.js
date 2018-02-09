@@ -118,7 +118,7 @@ var setCurrentAlbum = function(album) {
 };
 var albums = [albumPicasso, albumMarconi, albumNasser];
 var index = 1;
-var pauseButtonTemplate = '<a class="album-song-button"><span class ="ion-pause></span></a>"';
+var pauseButtonTemplate = '<a class="album-song-button"><span class ="ion-pause"></span></a>';
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 var currentlyPlayingSong = null;
 window.onload = function() {
@@ -127,10 +127,10 @@ window.onload = function() {
   var songRows = document.getElementsByClassName('album-view-song-item');
   songListContainer.addEventListener('mouseover', function(event) {
     //#1
-    if (event.target.parentElement.className === 'album-view-song-item') { // can you explain this to me ?
-      event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
+    if (event.target.parentElement.className == 'album-view-song-item') { // can you explain this to me ?
+      event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate; // th
       var songItem = getSongItem(event.target);
-           if (songItem.getAttribute('data-song-number') !== currentlyPlayingSong) {
+           if (songItem.getAttribute('data-song-number') == currentlyPlayingSong) {
                songItem.innerHTML = pauseButtonTemplate;
             }
     }
