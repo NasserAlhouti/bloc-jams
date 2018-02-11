@@ -122,9 +122,13 @@ var currentVolume = 80;
 var setupSeekBars = function(){
   var $seekBars = $('.player-bar .seek-bar');
   $seekBars.click(function(event){
+    // set a new property on the event object called pageX
     var offsetX = event.pageX - $(this).offset().left;
     var barWidth = $(this).width();
-
+// we divide offSetX by the width of the entire bar to calculate seekBarFillRatio
+var seekBarFillRatio = offsetX / barWidth;
+// we pass this as the seek bar argument and seekBarFillRatio
+updateSeekPercentage($(this),seekBarFillRatio);
   })
 }
 var $playSideBar = $('.main-controls .play-pause')
@@ -132,7 +136,7 @@ var updateSeekPercentage = function($seekBar , seekBarFillRatio){
   var offsetXPercent = seekBarFillRatio*100;
   // we use the built in javascript function Math.max() to make sure our percentage isn't less than zero
 offsetXPercent = Math.max(0,offsetXPercent);
-offsetXPercent = Math.min(100,offsetXpercent);
+offsetXPercent = Math.min(100,offsetXPercent);
 //we convert our percentage to a string and add the % when we set the width of the .fill class and left value of the .thumb
 var percentageString = offsetXPercent +'%'
   $seekBar.find('.fill').width(percentageString);
@@ -193,6 +197,7 @@ $('.main-controls .play-pause').html(playerBarPauseButton);
 };
 $(document).ready( function() {
   setCurrentAlbum(albumPicasso); //when the page loads album picasso loads
+  setupSeekBars()
   $previousButton.click(previousSong);
   $nextButton.click(nextSong);
   var albumImage = document.getElementsByClassName('album-cover-art')[0];
