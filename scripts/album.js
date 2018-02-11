@@ -12,6 +12,11 @@ var setSong = function(songNumber){
   });
   setVolume(currentVolume);
 };
+var seek = function(time){
+  if (currentSoundFile) {
+    currentSoundFile.setTime(time);
+  }
+}
 var setVolume = function(volume){
   if (currentSoundFile) {
     currentSoundFile.setVolume(volume)
@@ -41,8 +46,12 @@ var createSongRow = function(songNumber, songName, songLength) {
 		setSong(songNumber);
     currentSoundFile.play()
     updateSeekBarWhileSongPlays()
-    $(this).html(pauseButtonTemplate);
     currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+    var $volumeFill = $('.volume .fill');
+    var $volumeThumb = $('.volume .thumb');
+   $volumeFill.width(currentVolume + '%');
+  $volumeThumb.css({left: currentVolume + '%'});
+  $(this).html(pauseButtonTemplate);
     updatePlayerBarSong();
 	} // condition end
   else if (currentlyPlayingSongNumber === songNumber) { // else condition
@@ -128,9 +137,14 @@ var setupSeekBars = function(){
     var barWidth = $(this).width();
 // we divide offSetX by the width of the entire bar to calculate seekBarFillRatio
 var seekBarFillRatio = offsetX / barWidth;
+if ($(this).parent().attr('class')== 'seek-control') {
+  seek(seekBarFillRatio*currentSoundFile.getDuration());
+}else {
+  setVolume(seekBarFillRatio*100);
+}
 // we pass this as the seek bar argument and seekBarFillRatio
 updateSeekPercentage($(this),seekBarFillRatio);
-  })
+});
   // we find elemnts with a class of thumb in our seekbar and event listener for the mouse down
   $seekBars.find('.thumb').mousedown(function(event) {
     // taking the context of the event and rapping it in jQuery this will be equal to .thumb node that was clicked
@@ -140,6 +154,11 @@ updateSeekPercentage($(this),seekBarFillRatio);
       var offsetX = event.pageX - $seekBar.offset().left;
             var barWidth = $seekBar.width();
             var seekBarFillRatio = offsetX / barWidth;
+            if ($seekBar.parent().attr('class')=='seek-control') {
+              seek(seekBarFillRatio*currentSoundFile.getDuration())
+            }else {
+              setVolume(seekBarFillRatio)
+            }
       updateSeekPercentage($seekBar, seekBarFillRatio);
     }) ;
     $(document).bind('mouseup.thumb',function(){
