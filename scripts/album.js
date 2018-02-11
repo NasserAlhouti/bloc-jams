@@ -48,13 +48,13 @@ var createSongRow = function(songNumber, songName, songLength) {
 		// Switch from Pause -> Play button to pause currently playing song.
     if(currentSoundFile.isPaused()){
 		$(this).html(playButtonTemplate);
-    $('.main-controls .play-pause').html(playerBarPlayButton);
+    $('.main-controls .play-pause').html(playerBarPauseButton);
     currentSoundFile.play();
 
   } // end of the if condition
   else{
-    $(this).html(pauseButtonTemplate);
-    $('.main-controls .play-pause').html(playerBarPauseButton);
+    $(this).html(playButtonTemplate);
+    $('.main-controls .play-pause').html(playerBarPlayButton);
     currentSoundFile.pause();
   }//end of else
 	}// end of else condition
@@ -119,6 +119,7 @@ var currentlyPlayingSongNumber =null;
 var currentSongFromAlbum = null;
 var currentSoundFile = null;
 var currentVolume = 80;
+var $playSideBar = $('.main-controls .play-pause')
 var nextSong = function(){
   var currentSongIndex = trackIndex(currentAlbum,currentSongFromAlbum);
   currentSongIndex++;
