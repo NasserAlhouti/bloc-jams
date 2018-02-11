@@ -47,7 +47,7 @@ var createSongRow = function(songNumber, songName, songLength) {
   else if (currentlyPlayingSongNumber === songNumber) { // else condition
 		// Switch from Pause -> Play button to pause currently playing song.
     if(currentSoundFile.isPaused()){
-		$(this).html(playButtonTemplate);
+		$(this).html(pauseButtonTemplate);
     $('.main-controls .play-pause').html(playerBarPauseButton);
     currentSoundFile.play();
 
@@ -119,7 +119,25 @@ var currentlyPlayingSongNumber =null;
 var currentSongFromAlbum = null;
 var currentSoundFile = null;
 var currentVolume = 80;
+var setupSeekBars = function(){
+  var $seekBars = $('.player-bar .seek-bar');
+  $seekBars.click(function(event){
+    var offsetX = event.pageX - $(this).offset().left;
+    var barWidth = $(this).width();
+
+  })
+}
 var $playSideBar = $('.main-controls .play-pause')
+var updateSeekPercentage = function($seekBar , seekBarFillRatio){
+  var offsetXPercent = seekBarFillRatio*100;
+  // we use the built in javascript function Math.max() to make sure our percentage isn't less than zero
+offsetXPercent = Math.max(0,offsetXPercent);
+offsetXPercent = Math.min(100,offsetXpercent);
+//we convert our percentage to a string and add the % when we set the width of the .fill class and left value of the .thumb
+var percentageString = offsetXPercent +'%'
+  $seekBar.find('.fill').width(percentageString);
+  $seekBar.find('.thumb').css({left:percentageString})
+}
 var nextSong = function(){
   var currentSongIndex = trackIndex(currentAlbum,currentSongFromAlbum);
   currentSongIndex++;
