@@ -1,6 +1,12 @@
 var setSong = function(songNumber){
-  currentlyPlayingSongNumber = parseInt(songNumber)
-  currentSongFromAlbum = currentAlbum.songs[songNumber-1]
+  currentlyPlayingSongNumber = parseInt(songNumber);
+  currentSongFromAlbum = currentAlbum.songs[songNumber-1];
+  //assign a new buzz object
+  currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl,{
+    //passed in a setting object that has two properties defined format and properties
+    formats:['mp3'],
+    preload:true
+  });
 }
 var getSongNumberCell = function(number){
   return $('.song-item-number[data-song-number="' + number + '"]')
@@ -23,17 +29,26 @@ var createSongRow = function(songNumber, songName, songLength) {
 	} // end of condition
 	if (currentlyPlayingSongNumber !== songNumber) { // condition function
 		// Switch from Play -> Pause button to indicate new song is playing.
-		$(this).html(pauseButtonTemplate);
 		setSong(songNumber);
+    currentSoundFile.play()
+    $(this).html(pauseButtonTemplate);
     currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
     updatePlayerBarSong();
 	} // condition end
   else if (currentlyPlayingSongNumber === songNumber) { // else condition
 		// Switch from Pause -> Play button to pause currently playing song.
+    if(currentSoundFile.isPaused()){
 		$(this).html(playButtonTemplate);
     $('.main-controls .play-pause').html(playerBarPlayButton);
-		currentlyPlayingSongNumber = null;
-    currentSongFromAlbum = null;
+    currentSoundFile.play();
+		// currentlyPlayingSongNumber = null;
+    // currentSongFromAlbum = null;
+  } // end of the if condition
+  else{
+    $(this).html(pauseButtonTemplate);
+    $('.main-controls .play-pause').html(playerBarPauseButton);
+    currentSoundFile.pause();
+  }//end of else
 	}// end of else condition
 }; // function end
     var onHover = function(event) {
@@ -83,6 +98,8 @@ var setCurrentAlbum = function(album) {
          $albumSongList.append($newRow); //song number can't be equal to 0 so that's why we add one to it
   }
 };
+// global variables
+
 var albums = [albumPicasso, albumMarconi, albumNasser];
 var index = 1;
 var pauseButtonTemplate = '<a class="album-song-button"><span class ="ion-pause"></span></a>';
@@ -92,6 +109,7 @@ var playerBarPauseButton ='<span class ="ion-pause"></span>'
 var currentAlbum = null;
 var currentlyPlayingSongNumber =null;
 var currentSongFromAlbum = null;
+var currentSoundFile = null;
 var nextSong = function(){
   var currentSongIndex = trackIndex(currentAlbum,currentSongFromAlbum);
   currentSongIndex++;
