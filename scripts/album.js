@@ -40,6 +40,7 @@ var createSongRow = function(songNumber, songName, songLength) {
 		// Switch from Play -> Pause button to indicate new song is playing.
 		setSong(songNumber);
     currentSoundFile.play()
+    updateSeekBarWhileSongPlays()
     $(this).html(pauseButtonTemplate);
     currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
     updatePlayerBarSong();
@@ -130,8 +131,35 @@ var seekBarFillRatio = offsetX / barWidth;
 // we pass this as the seek bar argument and seekBarFillRatio
 updateSeekPercentage($(this),seekBarFillRatio);
   })
+  // we find elemnts with a class of thumb in our seekbar and event listener for the mouse down
+  $seekBars.find('.thumb').mousedown(function(event) {
+    // taking the context of the event and rapping it in jQuery this will be equal to .thumb node that was clicked
+    var $seekBar = $(this).parent();
+    // introduce a new way to track events bind() behaves similary to addEventListener in that it takes a string of an event instead of wrapping
+    $(document).bind('mousemove.thumb', function(event){// makes it go back to where it was
+      var offsetX = event.pageX - $seekBar.offset().left;
+            var barWidth = $seekBar.width();
+            var seekBarFillRatio = offsetX / barWidth;
+      updateSeekPercentage($seekBar, seekBarFillRatio);
+    }) ;
+    $(document).bind('mouseup.thumb',function(){
+      $(document).unbind('mousemove.thumb');
+      $(document).unbind('mouseup.thumb');
+    });
+  });
 }
 var $playSideBar = $('.main-controls .play-pause')
+var updateSeekBarWhileSongPlays = function(){
+  if (currentSoundFile) {
+    // we bind the time update event to currentSoundFile time upadate is a custom Buzz event that fires repeatedly while time elapses during song PlayBack
+    currentSoundFile.bind('timeupdate',function(event){
+    // we use a new method for calculating the seekBarFillRatio we use buzz getTime() method to get the current time of the song and the getDuration() method for getting the total length of the song both Values return in units in seconds
+    var seekBarFillRatio = this.getTime() / this.getDuration();
+    var $seekBar = $('.seek-control .seek-bar');
+      updateSeekPercentage($seekBar,seekBarFillRatio);
+  });
+  }
+}
 var updateSeekPercentage = function($seekBar , seekBarFillRatio){
   var offsetXPercent = seekBarFillRatio*100;
   // we use the built in javascript function Math.max() to make sure our percentage isn't less than zero
@@ -152,6 +180,7 @@ var nextSong = function(){
   //set a new current song
    setSong( currentSongIndex +1);
    currentSoundFile.play();
+   updateSeekBarWhileSongPlays();
   currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
   updatePlayerBarSong();
   var $nextSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
@@ -172,11 +201,13 @@ var previousSong = function(){
 
       // Set a new current song
       setSong(currentSongIndex + 1);
-      currentSoundFile.play();;
+      currentSoundFile.play();
+      updateSeekBarWhileSongPlays();
       currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
       // Update the Player Bar information
       updatePlayerBarSong();
+
 
       $('.main-controls .play-pause').html(playerBarPauseButton);
 
