@@ -10,6 +10,12 @@ var setSong = function(songNumber){
     formats:['mp3'],
     preload:true
   });
+  setVolume(currentVolume);
+};
+var setVolume = function(volume){
+  if (currentSoundFile) {
+    currentSoundFile.setVolume(volume)
+  }
 }
 var getSongNumberCell = function(number){
   return $('.song-item-number[data-song-number="' + number + '"]')
@@ -112,6 +118,7 @@ var currentAlbum = null;
 var currentlyPlayingSongNumber =null;
 var currentSongFromAlbum = null;
 var currentSoundFile = null;
+var currentVolume = 80;
 var nextSong = function(){
   var currentSongIndex = trackIndex(currentAlbum,currentSongFromAlbum);
   currentSongIndex++;
