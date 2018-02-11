@@ -19,10 +19,13 @@ var createSongRow = function(songNumber, songName, songLength) {
 		// Switch from Play -> Pause button to indicate new song is playing.
 		$(this).html(pauseButtonTemplate);
 		currentlyPlayingSongNumber = songNumber;
+    currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+    updatePlayerBarSong()
 	} // condition end
-  else if (currentlyPlayingSong === songNumber) { // else condition
+  else if (currentlyPlayingSongNumber === songNumber) { // else condition
 		// Switch from Pause -> Play button to pause currently playing song.
 		$(this).html(playButtonTemplate);
+    $('.main-controls .play-pause').html(playerBarPlayButton)
 		currentlyPlayingSongNumber = null;
     currentSongFromAlbum = null;
 	}// end of else condition
@@ -78,9 +81,17 @@ var albums = [albumPicasso, albumMarconi, albumNasser];
 var index = 1;
 var pauseButtonTemplate = '<a class="album-song-button"><span class ="ion-pause"></span></a>';
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
-var currentlyPlayingSong = null;
+var playerBarPlayButton = '<span class ="ion-pause"></span>';
+var playerBarPauseButton ='<span class="ion-play"></span>'
 var currentAlbum = null;
 var currentlyPlayingSongNumber =null;
+var currentSongFromAlbum = null;
+var updatePlayerBarSong = function(){
+  $('.currently-playing .song-name').text(currentSongFromAlbum.title);
+ $('.currently-playing .artist-name').text(currentAlbum.artist);
+$('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
+$('.main-controls .play-pause').html(playerBarPauseButton)
+};
 $(document).ready( function() {
   setCurrentAlbum(albumPicasso); //when the page loads album picasso loads
 
