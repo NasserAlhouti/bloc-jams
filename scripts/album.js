@@ -1,4 +1,7 @@
 var setSong = function(songNumber){
+  if (currentSoundFile) {
+    currentSoundFile.stop();
+  }
   currentlyPlayingSongNumber = parseInt(songNumber);
   currentSongFromAlbum = currentAlbum.songs[songNumber-1];
   //assign a new buzz object
@@ -41,8 +44,7 @@ var createSongRow = function(songNumber, songName, songLength) {
 		$(this).html(playButtonTemplate);
     $('.main-controls .play-pause').html(playerBarPlayButton);
     currentSoundFile.play();
-		// currentlyPlayingSongNumber = null;
-    // currentSongFromAlbum = null;
+
   } // end of the if condition
   else{
     $(this).html(pauseButtonTemplate);
@@ -118,7 +120,8 @@ var nextSong = function(){
   } // save last song before changing it
   var lastSongNumber = currentlyPlayingSongNumber;
   //set a new current song
-  currentlyPlayingSongNumber = currentSongIndex +1;
+   setSong( currentSongIndex +1);
+   currentSoundFile.play();
   currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
   updatePlayerBarSong();
   var $nextSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
@@ -134,12 +137,12 @@ var previousSong = function(){
       if (currentSongIndex < 0) {
           currentSongIndex = currentAlbum.songs.length - 1;
       }
-
       // Save the last song number before changing it
       var lastSongNumber = currentlyPlayingSongNumber;
 
       // Set a new current song
-      currentlyPlayingSongNumber = currentSongIndex + 1;
+      setSong(currentSongIndex + 1);
+      currentSoundFile.play();;
       currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
       // Update the Player Bar information
