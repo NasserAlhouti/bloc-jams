@@ -236,6 +236,10 @@ var previousSong = function(){
       $previousSongNumberCell.html(pauseButtonTemplate);
       $lastSongNumberCell.html(lastSongNumber);
 };
+$('.play-pause').on('click',function(){
+  currentSoundFile.togglePlay()
+$('.play-pause').html(playerBarPlayButton)
+})
 var trackIndex = function(album,song){
   return album.songs.indexOf(song);
 }
