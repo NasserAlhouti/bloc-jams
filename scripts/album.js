@@ -237,13 +237,26 @@ var previousSong = function(){
       $lastSongNumberCell.html(lastSongNumber);
 };
 $('.play-pause').on('click',function(){
+
   currentSoundFile.togglePlay()
-$('.play-pause').html(playerBarPlayButton)
+  if (currentlyPlayingSong !== null) {
+    var sideBar = $('.play-pause')
+  sideBar.html(currentlyPlayingSongNumber)
+}
+if (currentlyPlayingSong !== sideBar) {
+		// Switch from Play -> Pause button to indicate new song is playing.
+		$(this).html(pauseButtonTemplate);
+		currentlyPlayingSong = sideBar;
+	} else if (currentlyPlayingSong === sideBar) {
+		// Switch from Pause -> Play button to pause currently playing song.
+		$(this).html(playButtonTemplate);
+		currentlyPlayingSong = null;
+	}
 })
 var trackIndex = function(album,song){
   return album.songs.indexOf(song);
 }
-var updatePlayerBarSong = function(){
+var updatePlayerBarSong = function(){  // displays the the  singer of the song you're at
   $('.currently-playing .song-name').text(currentSongFromAlbum.title);
      $('.currently-playing .artist-name').text(currentAlbum.artist);
      $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
