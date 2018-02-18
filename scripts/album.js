@@ -237,21 +237,14 @@ var previousSong = function(){
       $lastSongNumberCell.html(lastSongNumber);
 };
 $('.play-pause').on('click',function(){
-
-  currentSoundFile.togglePlay()
-  if (currentlyPlayingSong !== null) {
-    var sideBar = $('.play-pause')
-  sideBar.html(currentlyPlayingSongNumber)
+var $this = $(this);
+if ($this.hasClass('ion-play')) {
+  $this.removeClass('ion-play').addClass('ion-pause');
+}else{
+  $this.removeClass('ion-pause').addClass('ion-play');
 }
-if (currentlyPlayingSong !== sideBar) {
-		// Switch from Play -> Pause button to indicate new song is playing.
-		$(this).html(pauseButtonTemplate);
-		currentlyPlayingSong = sideBar;
-	} else if (currentlyPlayingSong === sideBar) {
-		// Switch from Pause -> Play button to pause currently playing song.
-		$(this).html(playButtonTemplate);
-		currentlyPlayingSong = null;
-	}
+  currentSoundFile.togglePlay()
+
 })
 var trackIndex = function(album,song){
   return album.songs.indexOf(song);
