@@ -237,13 +237,15 @@ var previousSong = function(){
       $lastSongNumberCell.html(lastSongNumber);
 };
 $('.play-pause').on('click',function(){
-var $this = $(this);
-if ($this.hasClass('ion-play')) {
-  $this.removeClass('ion-play').addClass('ion-pause');
+if(currentSoundFile.isPaused()){
+$(this).html(pauseButtonTemplate);
+$('.main-controls .play-pause').html(playerBarPauseButton);
+currentSoundFile.play();
 }else{
-  $this.removeClass('ion-pause').addClass('ion-play');
+  $(this).html(playButtonTemplate);
+  $('.main-controls .play-pause').html(playerBarPlayButton);
+  currentSoundFile.pause();
 }
-  currentSoundFile.togglePlay()
 
 })
 var trackIndex = function(album,song){
