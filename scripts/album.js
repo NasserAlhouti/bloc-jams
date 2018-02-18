@@ -59,6 +59,7 @@ var createSongRow = function(songNumber, songName, songLength) {
     if(currentSoundFile.isPaused()){
 		$(this).html(pauseButtonTemplate);
     $('.main-controls .play-pause').html(playerBarPauseButton);
+    $()
     currentSoundFile.play();
 
   } // end of the if condition
@@ -251,7 +252,7 @@ currentSoundFile.play();
 var trackIndex = function(album,song){
   return album.songs.indexOf(song);
 }
-var updatePlayerBarSong = function(){  // displays the the  singer of the song you're at
+var updatePlayerBarSong = function(number){  // displays the the  singer of the song you're at
   $('.currently-playing .song-name').text(currentSongFromAlbum.title);
      $('.currently-playing .artist-name').text(currentAlbum.artist);
      $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
